@@ -43,8 +43,8 @@ hint - you should be looking at the stage key inside of the objects
 
 function getFinals(data) {
     return data.filter(obj => obj.Stage.includes('Final'))
- }
- console.log(getFinals(fifaData));
+}
+console.log(getFinals(fifaData));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -66,10 +66,21 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
+function determineWinner(obj) {
+    if(obj['Home Team Goals'] > obj['Away Team Goals']) {
+        return obj['Home Team Name'];
+    } else if(obj['Away Team Goals'] > obj['Home Team Goals']) {
+        return obj['Away Team Name'];
+    } else {
+      return obj['Win conditions'].split('win')[0].trim();
+    }
 }
 
+function getWinners(arr, callback) {
+    return callback(arr).map(obj => determineWinner(obj));
+}
+
+getWinners(fifaData, getFinals);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
